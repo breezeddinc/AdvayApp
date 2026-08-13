@@ -1,5 +1,5 @@
 import {forwardRef} from 'react'
-import {type ImageStyle, type StyleProp} from 'react-native'
+import {type TextProps} from 'react-native'
 import {Image} from 'expo-image'
 
 import {useLogoVariant} from '#/view/icons/useLogoVariant'
@@ -16,7 +16,7 @@ type Props = {
    * tinted with a single fill color the way the old vector mark could.
    */
   fill?: string
-  style?: StyleProp<ImageStyle>
+  style?: TextProps['style']
   width?: number | string
   height?: number | string
 }
@@ -57,10 +57,13 @@ export const Logo = forwardRef(function LogoImpl(props: Props, ref) {
       accessibilityHint=""
       accessibilityIgnoresInvertColors
       contentFit="contain"
-      style={[
-        {width: size, height: explicitHeight ?? size * ratio},
-        styles,
-      ]}
+      style={
+        [
+          {width: size, height: explicitHeight ?? size * ratio},
+          styles,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ] as any
+      }
     />
   )
 })

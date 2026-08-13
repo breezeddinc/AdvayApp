@@ -2,9 +2,8 @@
   "name": "advay.app",
   "version": "1.131.0",
   "private": true,
-  "packageManager": "pnpm@11.21.0",
   "engines": {
-    "node": "24.x"
+    "node": ">=24.18.0"
   },
   "devEngines": {
     "packageManager": {
@@ -40,7 +39,7 @@
   "scripts": {
     "prepare": "is-ci || husky",
     "postinstall": "pnpm intl:compile-if-needed",
-    "prebuild": "node ./scripts/write-google-services.js && EXPO_NO_GIT_STATUS=1 expo prebuild --clean",
+    "prebuild": "EXPO_NO_GIT_STATUS=1 expo prebuild --clean",
     "android": "expo run:android --variant debugOptimized",
     "android:prod": "expo run:android --variant release",
     "android:profile": "BSKY_PROFILE=1 expo run:android --variant release",

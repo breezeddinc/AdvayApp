@@ -65,7 +65,6 @@ module.exports = async function (env, argv) {
     'react-native-webview': 'react-native-web-webview',
     'react-native-gesture-handler': false, // RNGH should not be used on web, so let's cause a build error if it sneaks in
     '@sentry-internal/replay': false, // not used, ~300kb of dead weight
-    'expo-router/build/global-state/router-store': false, // internal path not resolvable on web; Sentry's expo-router integration already handles a missing module gracefully
     /*
      * react-native-svg's fetchData util imports the ~55KB `buffer` polyfill,
      * but is only needed by SvgUri/SvgXml remote loading, which we don't use.

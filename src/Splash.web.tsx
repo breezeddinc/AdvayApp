@@ -5,13 +5,21 @@
  */
 
 import {useEffect, useRef, useState} from 'react'
-import {Image as RNImage} from 'react-native'
 
 import {atoms as a, flatten} from '#/alf'
 // @ts-ignore
 import advayMarkPointer from '../assets/images/advay-logo-mark.png'
 
-const advayMarkUri = RNImage.resolveAssetSource(advayMarkPointer).uri
+// The web build (webpack) exports imported images as a plain string URL.
+// This is NOT the same as the Metro/native asset format, which is an
+// object requiring `Image.resolveAssetSource()` to unwrap — that API
+// doesn't behave the same way here, so we handle both shapes defensively
+// rather than assume one.
+const advayMarkUri: string =
+  typeof advayMarkPointer === 'string'
+    ? advayMarkPointer
+    : // @ts-ignore fallback for non-string asset module shapes
+      advayMarkPointer?.default || advayMarkPointer?.uri || advayMarkPointer
 
 const size = 100
 // assets/images/advay-logo-mark.png is 862x721

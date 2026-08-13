@@ -73,16 +73,49 @@ export const LOG_LEVEL = (process.env.EXPO_PUBLIC_LOG_LEVEL || 'info') as
 export const LOG_DEBUG: string = process.env.EXPO_PUBLIC_LOG_DEBUG || ''
 
 /**
- * The DID of the ADVAY appview to proxy to
+ * ADVAY's own PDS (Personal Data Server) URL and DID. Defaults to a local
+ * dev-stack PDS rather than Bluesky's `bsky.social`, so the app never
+ * silently talks to Bluesky's real network once you're set up to run
+ * independently. Set these once your own PDS is deployed.
  */
-export const BLUESKY_PROXY_DID: Did =
-  process.env.EXPO_PUBLIC_BLUESKY_PROXY_DID || 'did:web:api.bsky.app'
+export const PDS_SERVICE: string =
+  process.env.EXPO_PUBLIC_PDS_SERVICE || 'http://localhost:2583'
+export const PDS_SERVICE_DID: Did =
+  (process.env.EXPO_PUBLIC_PDS_SERVICE_DID as Did) ||
+  'did:web:localhost%3A2583'
 
 /**
- * The DID of the chat service to proxy to
+ * ADVAY's own AppView — indexes the network and serves feeds, search,
+ * profiles, notifications, etc. This is the largest piece of
+ * infrastructure in a fully independent AT Protocol deployment.
+ */
+export const APPVIEW_SERVICE: string =
+  process.env.EXPO_PUBLIC_APPVIEW_SERVICE || 'http://localhost:2584'
+export const APPVIEW_DID: Did =
+  (process.env.EXPO_PUBLIC_APPVIEW_DID as Did) ||
+  'did:plc:dw4kbjf5mn7nhenabiqpkyh3' // matches DEV_ENV_APPVIEW_DID in constants.ts
+
+/**
+ * ADVAY's own chat/DM service.
+ */
+export const CHAT_SERVICE: string =
+  process.env.EXPO_PUBLIC_CHAT_SERVICE || 'http://localhost:2584'
+
+/**
+ * The DID of the ADVAY appview to proxy to. Defaults to the same local
+ * dev AppView as APPVIEW_DID above — intentionally NOT Bluesky's real
+ * `did:web:api.bsky.app`, so a request never gets silently proxied to
+ * Bluesky's production network by an unconfigured build.
+ */
+export const BLUESKY_PROXY_DID: Did =
+  (process.env.EXPO_PUBLIC_BLUESKY_PROXY_DID as Did) || APPVIEW_DID
+
+/**
+ * The DID of the chat service to proxy to. Defaults to the same local
+ * dev AppView/chat address as CHAT_SERVICE above.
  */
 export const CHAT_PROXY_DID: Did =
-  process.env.EXPO_PUBLIC_CHAT_PROXY_DID || 'did:web:api.bsky.chat'
+  (process.env.EXPO_PUBLIC_CHAT_PROXY_DID as Did) || APPVIEW_DID
 
 /**
  * Metrics API host

@@ -2,18 +2,36 @@ import {type Insets, Platform} from 'react-native'
 import {type AppBskyActorDefs, BSKY_LABELER_DID} from '@atproto/api'
 
 import {type ProxyHeaderValue} from '#/state/session/agent'
-import {BLUESKY_PROXY_DID, CHAT_PROXY_DID, IS_DEV} from '#/env'
+import {
+  APPVIEW_DID,
+  APPVIEW_SERVICE,
+  BLUESKY_PROXY_DID,
+  CHAT_PROXY_DID,
+  CHAT_SERVICE as ENV_CHAT_SERVICE,
+  IS_DEV,
+  PDS_SERVICE,
+  PDS_SERVICE_DID,
+} from '#/env'
 
 export const LOCAL_DEV_SERVICE =
   Platform.OS === 'android' ? 'http://10.0.2.2:2583' : 'http://localhost:2583'
 export const STAGING_SERVICE = 'https://staging.bsky.dev'
-export const BSKY_SERVICE = 'https://bsky.social'
-export const BSKY_SERVICE_DID = 'did:web:bsky.social'
-export const PUBLIC_BSKY_SERVICE = 'https://public.api.bsky.app'
+/**
+ * ADVAY's own PDS (Personal Data Server). Defaults to a local dev-stack
+ * address rather than Bluesky's real `bsky.social` — this is deliberate.
+ * Once you have your own PDS running, set `EXPO_PUBLIC_PDS_SERVICE` (and
+ * `EXPO_PUBLIC_PDS_SERVICE_DID`) in your env instead of editing this file.
+ */
+export const BSKY_SERVICE = PDS_SERVICE
+export const BSKY_SERVICE_DID = PDS_SERVICE_DID
+export const PUBLIC_BSKY_SERVICE = PDS_SERVICE
 export const DEFAULT_SERVICE = BSKY_SERVICE
 const HELP_DESK_LANG = 'en-us'
 export const HELP_DESK_URL = `https://blueskyweb.zendesk.com/hc/${HELP_DESK_LANG}`
-export const CHAT_SERVICE = 'https://api.bsky.chat'
+/**
+ * ADVAY's own chat service. See `EXPO_PUBLIC_CHAT_SERVICE` in `.env.example`.
+ */
+export const CHAT_SERVICE = ENV_CHAT_SERVICE
 export const EMBED_SERVICE = 'https://embed.bsky.app'
 export const EMBED_SCRIPT = `${EMBED_SERVICE}/static/embed.js`
 export const BSKY_DOWNLOAD_URL = 'https://bsky.app/download'
@@ -229,8 +247,15 @@ export const urls = {
   },
 }
 
-export const PUBLIC_APPVIEW = 'https://api.bsky.app'
-export const PUBLIC_APPVIEW_DID = 'did:web:api.bsky.app'
+/**
+ * ADVAY's own AppView — the service that indexes the network and serves
+ * feeds, search, profiles, etc. This is the single biggest piece of
+ * infrastructure to stand up for a fully independent network. Defaults to
+ * a local dev-stack address; set `EXPO_PUBLIC_APPVIEW_SERVICE` (and
+ * `EXPO_PUBLIC_APPVIEW_DID`) once you have your own running.
+ */
+export const PUBLIC_APPVIEW = APPVIEW_SERVICE
+export const PUBLIC_APPVIEW_DID = APPVIEW_DID
 export const PUBLIC_STAGING_APPVIEW_DID = 'did:web:api.staging.bsky.dev'
 
 export const DEV_ENV_APPVIEW = `http://localhost:2584` // always the same

@@ -20,6 +20,7 @@ import {TimesLarge_Stroke2_Corner0_Rounded as TimesIcon} from '#/components/icon
 import * as Layout from '#/components/Layout'
 import {InlineLinkText} from '#/components/Link'
 import {Text} from '#/components/Typography'
+import {webLinks} from '#/lib/constants'
 
 export const SplashScreen = ({
   onDismiss,
@@ -165,22 +166,13 @@ function Footer() {
         a.flex_1,
         t.atoms.border_contrast_medium,
       ]}>
-      <InlineLinkText
-        label={_(msg`Learn more about ADVAY`)}
-        to="https://bsky.social">
-        <Trans>Business</Trans>
+      <InlineLinkText label={_(msg`ADVAY's Terms of Service`)} to={webLinks.tos}>
+        <Trans>Terms</Trans>
       </InlineLinkText>
       <InlineLinkText
-        label={_(msg`Read the ADVAY blog`)}
-        to="https://bsky.social/about/blog">
-        <Trans>Blog</Trans>
-      </InlineLinkText>
-      <InlineLinkText
-        label={_(msg`See jobs at ADVAY`)}
-        to="https://bsky.social/about/join">
-        <Trans comment="Link to a page with job openings at ADVAY">
-          Jobs
-        </Trans>
+        label={_(msg`ADVAY's Privacy Policy`)}
+        to={webLinks.privacy}>
+        <Trans>Privacy</Trans>
       </InlineLinkText>
 
       <View style={a.flex_1} />

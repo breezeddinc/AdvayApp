@@ -1,4 +1,4 @@
-import {type ImageStyle, type StyleProp, Text, View} from 'react-native'
+import {Text, View} from 'react-native'
 import {Image} from 'expo-image'
 
 import {useTheme} from '#/alf'
@@ -14,10 +14,7 @@ function resolveSize(props: Pick<Props, 'size'> & {width?: unknown}) {
 }
 
 export function Mark(
-  props: Omit<Props, 'fill' | 'gradient' | 'style'> & {
-    width?: number
-    style?: StyleProp<ImageStyle>
-  },
+  props: Omit<Props, 'fill' | 'gradient'> & {width?: number},
 ) {
   const size = resolveSize(props)
   return (
@@ -27,7 +24,13 @@ export function Mark(
       accessibilityHint=""
       accessibilityIgnoresInvertColors
       contentFit="contain"
-      style={[{width: size, height: size * markRatio}, props.style]}
+      style={
+        [
+          {width: size, height: size * markRatio},
+          props.style,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ] as any
+      }
     />
   )
 }
