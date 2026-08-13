@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native'
+import {type ImageStyle, type StyleProp, Text, View} from 'react-native'
 import {Image} from 'expo-image'
 
 import {useTheme} from '#/alf'
@@ -14,7 +14,10 @@ function resolveSize(props: Pick<Props, 'size'> & {width?: unknown}) {
 }
 
 export function Mark(
-  props: Omit<Props, 'fill' | 'gradient'> & {width?: number},
+  props: Omit<Props, 'fill' | 'gradient' | 'style'> & {
+    width?: number
+    style?: StyleProp<ImageStyle>
+  },
 ) {
   const size = resolveSize(props)
   return (

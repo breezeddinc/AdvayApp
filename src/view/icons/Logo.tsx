@@ -1,5 +1,5 @@
 import {forwardRef} from 'react'
-import {type TextProps} from 'react-native'
+import {type ImageStyle, type StyleProp} from 'react-native'
 import {Image} from 'expo-image'
 
 import {useLogoVariant} from '#/view/icons/useLogoVariant'
@@ -16,7 +16,7 @@ type Props = {
    * tinted with a single fill color the way the old vector mark could.
    */
   fill?: string
-  style?: TextProps['style']
+  style?: StyleProp<ImageStyle>
   width?: number | string
   height?: number | string
 }
